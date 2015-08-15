@@ -12,8 +12,8 @@ SRCL="/etc/apt/sources.list"
 if [[ -z "`grep $DEP $SRCL`" ]]; then
     # add repository
     echo "Adding repository to $SRCL"
-    echo "deb $DEP" > $SRCL
-    echo "deb-src $DEP" > $SRCL
+    echo "deb $DEP" >> $SRCL
+    echo "deb-src $DEP" >> $SRCL
 
     # upade package list
     echo "Update package list"
