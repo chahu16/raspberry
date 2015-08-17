@@ -16,16 +16,38 @@ sudo apt-get update
 sudo apt-get install --yes build-essential zlib1g-dev libpng12-dev libreadline-dev gawk libsqlite3-dev sqlite3 libgd2-xpm libgd2-xpm-dev libssl-dev sendmail sendemail libcurl4-openssl-dev libusb-1.0-0 libusb-1.0-0-dev apache2 php5 php5-sqlite libapache2-mod-php5 ntp tnftp wget
 
 # download and install radlib
-wget http://downloads.sourceforge.net/radlib/$radlib.tar.gz
-tar zxvf $radlib.tar.gz
+if [[ ! -e "$radlib.tar.gz" ]]; then
+    wget http://downloads.sourceforge.net/radlib/$radlib.tar.gz
+    if [[ ! -e "$radlib.tar.gz" ]]; then
+        echo "Can't download $radlib.targz, exiting"
+        exit 1
+    else
+        tar zxvf $radlib.tar.gz
+        if [[ $? != "0" ]]; then
+            echo "Can't extract tar ball. Exiting"
+            exit 1
+        fi
+    fi
+fi
 cd $radlib
 ./configure --enable-sqlite --prefix=/ --bindir=/usr/bin --sysconfdir=/etc --localstatedir=/var/lib --libdir=/usr/lib
 sudo make install
 cd ..
 
 # download and install wview
-wget http://downloads.sourceforge.net/wview/$wview.tar.gz
-tar zxvf $wview.tar.gz
+if [[ ! -e "$wview.tar.gz" ]]; then
+    wget http://downloads.sourceforge.net/wview/$wview.tar.gz
+    if [[ ! -e "$wview.tar.gz" ]]; then
+        echo "Can't download $wview.tar.gz, exiting"
+        exit 1
+    else
+        tar zxvf $wview.tar.gz
+        if [[ $? != "0" ]]; then
+            echo "Can't extract tar ball. Exiting"
+            exit 1
+        fi
+    fi
+fi
 cd $wview
 ./configure --prefix=/ --bindir=/usr/bin --sysconfdir=/etc --localstatedir=/var/lib --libdir=/usr/lib
 sudo make install
